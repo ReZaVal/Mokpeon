@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <link rel ="stylesheet" href= "./styles.css">
+    </head>
+    <body>
+        <section id="seleccionar-mascota">
+            <h1 class="titulo">Mokepon</h1>
+            <h2 class="subtitulo">Elige a tu mascota:</h2>
+
+            <div id='contenedorTarjetas' class="tarjetas">
+               
+            </div>
+
+            <button id="bottom-mascota">Seleccionar</button>
+        </section>
+
+        <section id="seleccionar-ataque">
+            <h1 class="titulo">Mokepon</h1>
+            <h2 class="subtitulo">Elige a tu ataque:</h2>
+
+            <div class="arena">
+                <div class="lado-jugador">
+                    <p id="mascota-jugador"></p>
+                    <p>Tu mascota tiene <span id="vidas-jugador">3</span> vidas</p>
+                    <img id="imagen-jugador" src="" alt="mascota jugador">
+                </div>
+                <div class="lado-enemigo">
+                    <p id="mascota-enemigo"></p>
+                    <p>El enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+                    <img id="imagen-enemigo" src="" alt="mascota enemigo">
+                </div>
+            </div>
+
+            <div id='contenedorAtaques' class="tarjetas-ataques"></div>
+
+            <button id="bottom-reiniciar">Reiniciar</button>
+
+            <section id="Mensajes">
+                <p id="resultado"></p>
+            </section>
+
+            <div class="ataques">
+                <div id="historial-resultado"></div>
+            </div>
+        </section>
+        <script src="./js/mokepon.js"></script>
+    </body>
+</html>
