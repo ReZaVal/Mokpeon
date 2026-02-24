@@ -18,6 +18,11 @@
     const imgJugador = document.getElementById('imagen-jugador')
     const imgEnemigo = document.getElementById('imagen-enemigo')
 
+    const sectionVerMapa = document.getElementById('ver-mapa')
+    const mapa = document.getElementById('mapa')
+
+
+
 let mokepones = []
 let ataqueEnemigo = []
 let ataqueJugador = []     
@@ -43,6 +48,7 @@ let vidasenemigo = 3
 let bottomFuego
 let bottomAgua
 let bottomTierra
+let lienzo = mapa.getContext('2d')
 
 class Mokepon {
     constructor(nombre, foto, vida){
@@ -50,6 +56,12 @@ class Mokepon {
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
     }
 }
 
@@ -113,6 +125,8 @@ mokepones.push(Hipodoge, Capipepo, Ratigueya, Langostelvis, Tucapalma, Pydos)
 function iniciarJuego() {
 
     sectionseleccionarataque.style.display = 'none'
+    sectionVerMapa.style.display = 'none'  
+
 
     mokepones.forEach((mokepon) => {
         opcionDeMokepones = 
@@ -138,7 +152,9 @@ function iniciarJuego() {
 
 function seleccionarMascotaJugador() {
     sectionseleccionmascota.style.display = 'none'
-    sectionseleccionarataque.style.display = 'flex'
+    sectionVerMapa.style.display = 'flex'
+
+
 
     if (inputHipodoge.checked) {
         spanMascotaJugador.innerHTML = inputHipodoge.id
@@ -311,5 +327,21 @@ function aleatorio(min, max) {
         return Math.floor(Math.random()*(max-min+1)+min)
 }
 
+function pintarPersonaje(){
+        lienzo.clearRect(0, 0, mapa.width, mapa.height)
+        lienzo.drawImage(
+        Capipepo.mapaFoto,
+        Capipepo.x,
+        Capipepo.y,
+        Capipepo.ancho,
+        Capipepo.alto,
+        )
+}
+
+function moverCapipepo(){
+    Capipepo.x = Capipepo.x + 5
+    pintarPersonaje()
+}
+ 
 window.addEventListener('load', iniciarJuego)
 bottomReiniciar.addEventListener('click', reiniciarjuego)
