@@ -1,0 +1,24 @@
+{
+  "name": "mokpeon",
+  "version": "1.0.0",
+  "description": "proyecto de programación Platzi",
+  "homepage": "https://github.com/ReZaVal/Mokpeon#readme",
+  "bugs": {
+    "url": "https://github.com/ReZaVal/Mokpeon/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReZaVal/Mokpeon.git"
+  },
+  "license": "ISC",
+  "author": "Renzo Zavala",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
