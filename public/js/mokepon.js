@@ -252,20 +252,21 @@ function seleccionarMascotaJugador() {
             body: JSON.stringify({ mokepon: mascotaJugador })
         })
         .then(function (res) {
-            if (res.ok) {
-                return fetch(`${SERVIDOR}/jugadores`)
-            }
+            if (!res.ok) return null
+            // Registrar posición provisional antes de obtener enemigos,
+            // para que otros jugadores nos vean con coordenadas en GET /jugadores
+            return fetch(`${SERVIDOR}/mokepon/${jugadorId}/posicion`, {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ x: Math.floor(mapa.width / 2), y: Math.floor(mapa.height / 2) })
+            })
         })
         .then(function (res) {
-            if (res) return res.json()
+            if (res && res.ok) return res.json()
         })
         .then(function (data) {
-            if (data && data.jugadores) {
-                const enemigosServidor = data.jugadores.filter(function (j) {
-                    return j.id !== jugadorId
-                })
-                procesarEnemigos(enemigosServidor)
-            }
+            // POST /posicion ya devuelve enemigos con sus coordenadas actuales
+            if (data && data.enemigos) procesarEnemigos(data.enemigos)
         })
     }
 
@@ -424,8 +425,8 @@ function procesarEnemigos(enemigosServidor) {
                 )
                 nuevoEnemigo.mapaFoto = template.mapaFoto
                 nuevoEnemigo.ataques = template.ataques
-                nuevoEnemigo.x = null
-                nuevoEnemigo.y = null
+                nuevoEnemigo.x = enemigoServidor.x ?? 0
+                nuevoEnemigo.y = enemigoServidor.y ?? 0
                 enemigosPorId[id] = nuevoEnemigo
             }
         }
@@ -588,6 +589,7 @@ function iniciarMapa(){
         .then(function(data) { if (data && data.enemigos) procesarEnemigos(data.enemigos) })
 
         Promise.all([fetchJugadores, fetchPosicion]).finally(function() {
+            obtenerJugadores()   // refresco extra para cubrir condición de carrera
             intervalo = setInterval(PintarCanvas, 50)
         })
     }

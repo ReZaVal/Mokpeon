@@ -4,7 +4,7 @@ const cors = require('cors')
 const { Http2ServerRequest } = require('http2')
 
 const app = express()
-http://DESKTOP-7SUOIPS.local:8080
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
@@ -88,13 +88,14 @@ app.get('/', (_req, res) => {
 })
 
 app.get('/unirse', (req, res) => {
-  const id = `${Math.random()}`
+  const id = `${Date.now()}-${Math.random()}`
 
   const nuevoJugador = new jugador(id)
 
   jugadores.push(nuevoJugador)
 
   res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Cache-Control", "no-store")
 
   res.send(id)
 
@@ -109,6 +110,9 @@ app.post('/mokepon/:jugadorId',(req, res) => {
 
   if(jugadorIdenx >= 0) {
     jugadores[jugadorIdenx].asignarMokepon(nuevoMokepon)
+    if (jugadores[jugadorIdenx].x == null) {
+      jugadores[jugadorIdenx].actualizarPosicion(0, 0)
+    }
   }
   
   console.log(jugadores)
